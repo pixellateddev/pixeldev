@@ -1,14 +1,14 @@
 "use client"
 
-import { login } from "@/lib/auth"
+import { register } from "@/lib/auth"
 import { Button, Form, Input } from "antd"
 import { FC, useState } from "react"
 
-const LoginForm: FC = () => {
+const RegisterForm: FC = () => {
   const [submitting, setSubmitting] = useState(false)
   const onSubmit = async (values: any) => {
     setSubmitting(true)
-    const result = await login(values)
+    const result = await register(values)
     setSubmitting(false)
   }
   return (
@@ -16,14 +16,24 @@ const LoginForm: FC = () => {
       <Form.Item name="username" label="Username" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
+      <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
       <Form.Item name="password" label="Password" rules={[{ required: true }]}>
         <Input.Password />
       </Form.Item>
+      <Form.Item
+        name="confirmPassword"
+        label="Confirm Password"
+        rules={[{ required: true }]}
+      >
+        <Input.Password />
+      </Form.Item>
       <Button loading={submitting} type="primary" htmlType="submit">
-        Login
+        Register
       </Button>
     </Form>
   )
 }
 
-export default LoginForm
+export default RegisterForm

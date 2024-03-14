@@ -1,13 +1,6 @@
-import LoginForm from "@/components/login-form/login-form"
-import { login } from "@/lib/auth"
+import { getSession } from "@/utils/auth"
 
-export default function Home() {
-  return (
-    <LoginForm
-      onSubmit={async (values) => {
-        "use server"
-        login(values)
-      }}
-    />
-  )
+export default async function Home() {
+  const session = await getSession()
+  return <pre>{JSON.stringify(session, null, 2)}</pre>
 }
