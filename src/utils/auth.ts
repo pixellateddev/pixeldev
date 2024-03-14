@@ -3,6 +3,7 @@ import { SignJWT, jwtVerify } from "jose"
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
+import { JWTPayload } from "jose"
 
 const SECRET_KEY = process.env.SECRET_KEY!
 
@@ -29,9 +30,13 @@ export const encryptJWT = async (payload: any) => {
 }
 
 export const decrypt = async (token: string) => {
-  const { payload } = await jwtVerify(token, JWT_KEY, {
-    algorithms: ["HS256"],
-  })
+  const { payload } = await jwtVerify<{ user: { username: string } }>(
+    token,
+    JWT_KEY,
+    {
+      algorithms: ["HS256"],
+    }
+  )
   return payload
 }
 

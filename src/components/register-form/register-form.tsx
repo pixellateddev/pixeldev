@@ -12,7 +12,7 @@ const RegisterForm: FC = () => {
     setSubmitting(false)
   }
   return (
-    <Form requiredMark="optional" onFinish={onSubmit}>
+    <Form requiredMark="optional" layout="vertical" onFinish={onSubmit}>
       <Form.Item name="username" label="Username" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
