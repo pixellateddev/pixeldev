@@ -20,6 +20,30 @@ model User {
   email                   String              @unique
   password                String
   name                    String?
+  expenses                Expense[]
 
   @@map("users")
+}
+
+model Expense {
+  id                      String              @id @default(auto()) @map("_id") @db.ObjectId
+  userUsername            String
+  user                    User                @relation(fields: [userUsername], references: [username])
+  description             String              
+  amount                  Float
+  tagIDs                  String[]            @db.ObjectId
+  tags                    Tag[]               @relation(fields: [tagIDs], references: [id])
+  notes                   String?
+  date                    DateTime
+
+  @@map("expenses")
+}
+
+model Tag {
+  id                      String              @id @default(auto()) @map("_id") @db.ObjectId
+  name                    String              @unique
+  expenseIDs              String[]            @db.ObjectId
+  expenses                Expense[]           @relation(fields: [expenseIDs], references: [id])
+
+  @@map("expenses_tags")
 }

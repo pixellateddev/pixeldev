@@ -1,7 +1,7 @@
-import LoginForm from "@/components/login-form/login-form"
 import { NextPage } from "next"
 import classes from "../auth.module.scss"
 import Link from "next/link"
+import { LoginForm } from "@/components/forms"
 
 const Login: NextPage = async () => {
   return (
