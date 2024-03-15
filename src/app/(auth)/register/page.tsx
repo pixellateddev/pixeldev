@@ -1,7 +1,7 @@
-import RegisterForm from "@/components/register-form/register-form"
 import { NextPage } from "next"
 import classes from "../auth.module.scss"
 import Link from "next/link"
+import { RegisterForm } from "@/components/forms"
 
 const Register: NextPage = async () => {
   return (

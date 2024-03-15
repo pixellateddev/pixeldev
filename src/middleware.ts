@@ -1,8 +1,18 @@
 import { NextRequest } from "next/server"
-import { updateSession } from "./utils/auth"
+import { getUser, updateSession } from "./utils/auth"
 
 const middleware = async (request: NextRequest) => {
-  return await updateSession(request)
+    try {
+        const user = await getUser()
+        if (
+            user &&
+            (request.nextUrl.pathname.startsWith("/login") ||
+                request.nextUrl.pathname.startsWith("/register"))
+        ) {
+            return Response.redirect(new URL("/", request.url))
+        }
+    } catch (err) {}
+    return await updateSession(request)
 }
 
 export default middleware
