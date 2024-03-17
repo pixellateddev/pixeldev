@@ -1,8 +1,8 @@
-import { ExpenseForm } from "@/components/forms"
 import prisma from "@/lib/db"
-import { getSession, getUser } from "@/utils/auth"
+import { getUser } from "@/utils/auth"
 import { NextPage } from "next"
-import ExpenseList from "./(components)/expense-list"
+import ExpenseList from "./(components)/expense-list/expense-list"
+import classes from "./expense-tracker.module.scss"
 
 const ExpenseTracker: NextPage = async () => {
     const user = await getUser()
@@ -30,10 +30,8 @@ const ExpenseTracker: NextPage = async () => {
     })
 
     return (
-        <div>
-            <div>Hello Expense Tracker</div>
+        <div className={classes.container}>
             <ExpenseList expenses={expenses} />
-            <ExpenseForm />
         </div>
     )
 }

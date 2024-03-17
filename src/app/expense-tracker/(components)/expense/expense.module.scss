@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "description amount"
+        "date amount";
+
+    .amount {
+        grid-area: amount;
+        color: red;
+        font-size: 1.5rem;
+    }
+}
