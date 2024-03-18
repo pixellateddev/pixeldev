@@ -13,6 +13,17 @@ export const createExpense = async (values: any) => {
                 ...values,
                 date: new Date(values.date),
                 userUsername: user,
+                tags: {
+                    connectOrCreate: values.tags.map((tag: string) => ({
+                        where: {
+                            name: tag,
+                        },
+                        create: {
+                            name: tag,
+                            color: "magenta",
+                        },
+                    })),
+                },
             },
         })
         revalidatePath("/expense-tracker")

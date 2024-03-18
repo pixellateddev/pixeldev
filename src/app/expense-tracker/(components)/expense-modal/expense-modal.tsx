@@ -1,7 +1,8 @@
 import { createExpense } from "@/lib/expense"
-import { DatePicker, Form, Input, InputNumber, Modal } from "antd"
+import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd"
 import dayjs from "dayjs"
 import { FC, useState } from "react"
+import classes from "./expense-modal.module.scss"
 
 interface Props {
     open?: boolean
@@ -36,47 +37,50 @@ const ExpenseModal: FC<Props> = ({ open, onClose }) => {
         <Modal
             open={open}
             title="Record Expense"
+            confirmLoading={submitting}
             onOk={onOk}
             onCancel={onCancel}
         >
-            <div>
-                <Form
-                    form={form}
-                    requiredMark="optional"
-                    onFinish={handleSubmit}
-                    labelCol={{ span: 7 }}
-                    labelAlign="left"
+            <Form
+                className={classes.form}
+                form={form}
+                requiredMark="optional"
+                onFinish={handleSubmit}
+                labelCol={{ span: 7 }}
+                labelAlign="left"
+            >
+                <Form.Item
+                    name="description"
+                    label="Description"
+                    rules={[{ required: true }]}
                 >
-                    <Form.Item
-                        name="description"
-                        label="Description"
-                        rules={[{ required: true }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="amount"
-                        label="Amount"
-                        rules={[{ required: true }]}
-                    >
-                        <InputNumber addonAfter="₹" />
-                    </Form.Item>
-                    <Form.Item
-                        name="date"
-                        label="Date"
-                        rules={[{ required: true }]}
-                    >
-                        <DatePicker
-                            allowClear={false}
-                            defaultPickerValue={dayjs()}
-                            maxDate={dayjs()}
-                        />
-                    </Form.Item>
-                    <Form.Item name="notes" label="Notes">
-                        <Input.TextArea />
-                    </Form.Item>
-                </Form>
-            </div>
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name="amount"
+                    label="Amount"
+                    rules={[{ required: true }]}
+                >
+                    <InputNumber addonAfter="₹" />
+                </Form.Item>
+                <Form.Item
+                    name="date"
+                    label="Date"
+                    rules={[{ required: true }]}
+                >
+                    <DatePicker
+                        allowClear={false}
+                        defaultPickerValue={dayjs()}
+                        maxDate={dayjs()}
+                    />
+                </Form.Item>
+                <Form.Item name="tags" label="Tags">
+                    <Select mode="tags" maxTagCount="responsive" />
+                </Form.Item>
+                <Form.Item name="notes" label="Notes">
+                    <Input.TextArea />
+                </Form.Item>
+            </Form>
         </Modal>
     )
 }

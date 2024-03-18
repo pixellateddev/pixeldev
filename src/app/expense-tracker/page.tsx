@@ -24,6 +24,10 @@ const ExpenseTracker: NextPage = async () => {
         where: {
             userUsername: user,
         },
+        include: {
+            tags: true,
+        },
+
         orderBy: {
             date: "desc",
         },
