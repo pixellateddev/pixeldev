@@ -23,7 +23,6 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
     }
 
     const handleSubmit = async (values: any) => {
-        // console.log(dayjs().toISOString())
         setSubmitting(true)
         const parsedValues = {
             ...values,

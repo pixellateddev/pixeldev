@@ -11,7 +11,6 @@ interface Props {
 }
 
 const ExpenseList: FC<Props> = ({ expenses }) => {
-    console.log(expenses)
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [selectedExpense, setSelectedExpense] = useState<any>(null)
     const openForm = (expense?: any) => {

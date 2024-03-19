@@ -1,9 +1,7 @@
 import bcrypt from "bcryptjs"
 import { SignJWT, jwtVerify } from "jose"
-import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
-import { JWTPayload } from "jose"
 
 const SECRET_KEY = process.env.SECRET_KEY!
 
