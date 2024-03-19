@@ -1,15 +1,16 @@
 import { createExpense } from "@/lib/expense"
 import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd"
-import dayjs from "dayjs"
+import dayjs, { Dayjs } from "dayjs"
 import { FC, useState } from "react"
 import classes from "./expense-modal.module.scss"
 
 interface Props {
+    expense?: any
     open?: boolean
     onClose: () => void
 }
 
-const ExpenseModal: FC<Props> = ({ open, onClose }) => {
+const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
     const [form] = Form.useForm()
     const [submitting, setSubmitting] = useState(false)
 
@@ -18,20 +19,22 @@ const ExpenseModal: FC<Props> = ({ open, onClose }) => {
     }
 
     const onCancel = () => {
-        form.resetFields()
         onClose()
     }
 
     const handleSubmit = async (values: any) => {
+        // console.log(dayjs().toISOString())
         setSubmitting(true)
         const parsedValues = {
             ...values,
-            date: new Date(values.date).toISOString(),
+            date: (values.date as Dayjs).toISOString(),
         }
         await createExpense(parsedValues)
         setSubmitting(false)
         onCancel()
     }
+
+    const initialValues = expense || {}
 
     return (
         <Modal
@@ -44,6 +47,7 @@ const ExpenseModal: FC<Props> = ({ open, onClose }) => {
             <Form
                 className={classes.form}
                 form={form}
+                // initialValues={initialValues}
                 requiredMark="optional"
                 onFinish={handleSubmit}
                 labelCol={{ span: 7 }}

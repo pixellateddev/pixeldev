@@ -1,15 +1,20 @@
 import { FC } from "react"
 import classes from "./expense.module.scss"
-import { Card, Tag } from "antd"
+import { Button, Card, Tag } from "antd"
 import dayjs from "dayjs"
-import { CalendarOutlined } from "@ant-design/icons"
+import {
+    CalendarOutlined,
+    DeleteOutlined,
+    EditOutlined,
+} from "@ant-design/icons"
 
 interface Props {
     expense: any
+    onEdit: () => void
+    onDelete: () => void
 }
 
-const Expense: FC<Props> = ({ expense }) => {
-    console.log(expense)
+const Expense: FC<Props> = ({ expense, onEdit, onDelete }) => {
     return (
         <Card>
             <div className={classes.container}>
@@ -30,6 +35,21 @@ const Expense: FC<Props> = ({ expense }) => {
                     ,&nbsp;
                     {dayjs(expense.date).format("DD MMM YYYY")}
                 </p>
+                <div className={classes.actions}>
+                    <Button
+                        onClick={onEdit}
+                        icon={<EditOutlined />}
+                        type="link"
+                        shape="circle"
+                    />
+                    <Button
+                        icon={<DeleteOutlined title="Delete" />}
+                        onClick={onDelete}
+                        type="link"
+                        danger
+                        shape="circle"
+                    />
+                </div>
                 <p className={classes.notes}>{expense.notes}</p>
             </div>
         </Card>

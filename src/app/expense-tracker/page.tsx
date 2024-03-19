@@ -3,6 +3,7 @@ import { getUser } from "@/utils/auth"
 import { NextPage } from "next"
 import ExpenseList from "./(components)/expense-list/expense-list"
 import classes from "./expense-tracker.module.scss"
+import { getExpenses } from "@/lib/expense"
 
 const ExpenseTracker: NextPage = async () => {
     const user = await getUser()
@@ -20,18 +21,20 @@ const ExpenseTracker: NextPage = async () => {
     //         userUsername: session.user.username,
     //     },
     // })
-    const expenses = await prisma.expense.findMany({
-        where: {
-            userUsername: user,
-        },
-        include: {
-            tags: true,
-        },
+    // const expenses = await prisma.expense.findMany({
+    //     where: {
+    //         userUsername: user,
+    //     },
+    //     include: {
+    //         tags: true,
+    //     },
 
-        orderBy: {
-            date: "desc",
-        },
-    })
+    //     orderBy: {
+    //         date: "desc",
+    //     },
+    // })
+
+    const expenses = await getExpenses()
 
     return (
         <div className={classes.container}>

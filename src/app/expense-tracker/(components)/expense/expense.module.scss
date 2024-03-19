@@ -3,9 +3,9 @@
     grid-template-columns: 1fr 1fr 12em 6em;
     align-items: center;
     grid-template-areas:
-        "description tags date amount"
-        "notes notes notes notes";
-    column-gap: 3em;
+        "description tags date amount actions"
+        "notes notes notes notes notes";
+    gap: 1em;
 
     .description {
         grid-area: description;
@@ -14,6 +14,10 @@
 
     .tags {
         grid-area: tags;
+    }
+
+    .actions {
+        grid-area: actions;
     }
 
     .date {
