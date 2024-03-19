@@ -1,0 +1,16 @@
+.container {
+    // height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    .formContainer {
+        width: 40%;
+        min-width: 400px;
+        padding: 1em;
+        border: 1px solid #ebebeb;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+}

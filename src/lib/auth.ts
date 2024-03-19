@@ -6,6 +6,7 @@ import prisma from "./db"
 import { comparePassword, encryptPassword, setSession } from "@/utils/auth"
 import { redirect } from "next/navigation"
 import { handleError } from "./utils"
+import { cookies } from "next/headers"
 
 export const login = async (values: any): Promise<ServerActionResponse> => {
     const { username, password } = values
@@ -38,5 +39,15 @@ export const register = async (values: any) => {
         redirect("/expense-tracker")
     } catch (err) {
         return handleError(err)
+    }
+}
+
+export const logOut = () => {
+    console.log("hello")
+    try {
+        cookies().delete("session")
+        redirect("/")
+    } catch (err) {
+        handleError(err)
     }
 }

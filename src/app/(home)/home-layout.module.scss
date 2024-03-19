@@ -1,0 +1,12 @@
+.container {
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .main {
+        padding: 0 1em;
+        flex: 1;
+    }
+}
