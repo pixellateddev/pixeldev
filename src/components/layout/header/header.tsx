@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { FC, ReactElement, ReactNode } from 'react'
+import { FC } from 'react'
 import classes from './header.module.scss'
 import Link from 'next/link'
 import { Button } from 'antd'
@@ -7,17 +7,18 @@ import { getUser } from '@/utils/auth'
 import Logout from './components/logout'
 
 interface Props {
-    logo?: ReactNode
+    appName?: string
 }
 
-const Header: FC<Props> = async ({ logo }) => {
+const Header: FC<Props> = async ({ appName }) => {
     let user = null
     try {
         user = await getUser()
     } catch (err) {}
     return (
         <div className={classes.header}>
-            {logo}
+            <Image src="/logo.svg" alt="logo" height={35} width={250} />
+            <p className={classes.appName}>{appName}</p>
             <div className={classes.auth}>
                 {user ? (
                     <>

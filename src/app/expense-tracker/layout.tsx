@@ -10,16 +10,7 @@ const ExpenseLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <div>
             <header>
-                <Header
-                    logo={
-                        <div>
-                            <p>Expense Tracker</p>
-                            <p>
-                                <span>by</span> Pixellateddev
-                            </p>
-                        </div>
-                    }
-                />
+                <Header appName="Expense Tracker" />
             </header>
             <main>{children}</main>
             <footer>Footer</footer>

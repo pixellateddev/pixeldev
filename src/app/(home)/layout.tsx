@@ -12,16 +12,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <div className={classes.container}>
             <header className={classes.header}>
-                <Header
-                    logo={
-                        <Image
-                            src="/logo.svg"
-                            alt="logo"
-                            height={35}
-                            width={250}
-                        />
-                    }
-                />
+                <Header />
             </header>
             <main className={classes.main}>{children}</main>
             <footer className={classes.footer}>Footer</footer>

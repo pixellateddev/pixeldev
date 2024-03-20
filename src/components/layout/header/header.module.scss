@@ -5,6 +5,10 @@
     align-items: center;
     border-bottom: 1px solid #ebebeb;
 
+    .appName {
+        font-weight: 600;
+    }
+
     .auth {
         display: flex;
         align-items: center;
