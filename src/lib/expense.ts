@@ -1,9 +1,9 @@
-"use server"
+'use server'
 
-import { revalidatePath } from "next/cache"
-import prisma from "./db"
-import { getUser } from "@/utils/auth"
-import { handleError } from "./utils"
+import { revalidatePath } from 'next/cache'
+import prisma from './db'
+import { getUser } from '@/utils/auth'
+import { handleError } from './utils'
 
 export const getExpenses = async () => {
     const user = await getUser()
@@ -24,6 +24,9 @@ export const getExpenses = async () => {
                 },
             },
         },
+        orderBy: {
+            date: 'desc',
+        },
     })
 }
 
@@ -42,13 +45,13 @@ export const createExpense = async (values: any) => {
                         },
                         create: {
                             name: tag,
-                            color: "magenta",
+                            color: 'magenta',
                         },
                     })),
                 },
             },
         })
-        revalidatePath("/expense-tracker")
+        revalidatePath('/expense-tracker')
     } catch (err) {
         return handleError(err)
     }
@@ -73,5 +76,5 @@ export const deleteExpense = async (expenseId: string) => {
     })
 
     await prisma.$transaction([disconnectTagsQuery, deleteExpenseQuery])
-    revalidatePath("/expense-tracker")
+    revalidatePath('/expense-tracker')
 }

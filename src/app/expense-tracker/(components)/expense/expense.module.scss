@@ -1,11 +1,11 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 12em 6em;
+    grid-template-columns: 1fr 1fr 15em 15em;
     align-items: center;
     grid-template-areas:
-        "description tags date amount actions"
-        "notes notes notes notes notes";
-    gap: 1em;
+        'description tags date amount actions'
+        'notes notes notes notes notes';
+    gap: 1em 2em;
 
     .description {
         grid-area: description;

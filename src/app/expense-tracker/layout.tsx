@@ -1,16 +1,25 @@
-import { FC, PropsWithChildren } from "react"
-import { Header } from "./(components)"
-import { Metadata } from "next"
+import { FC, PropsWithChildren } from 'react'
+import { Metadata } from 'next'
+import { Header } from '@/components/layout'
 
 export const metadata: Metadata = {
-    title: "Expense Tracker by Pixellateddev",
+    title: 'Expense Tracker by Pixellateddev',
 }
 
 const ExpenseLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <div>
             <header>
-                <Header />
+                <Header
+                    logo={
+                        <div>
+                            <p>Expense Tracker</p>
+                            <p>
+                                <span>by</span> Pixellateddev
+                            </p>
+                        </div>
+                    }
+                />
             </header>
             <main>{children}</main>
             <footer>Footer</footer>
