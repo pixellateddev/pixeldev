@@ -1,0 +1,9 @@
+.banner {
+    display: flex;
+    flex-direction: column;
+
+    .message {
+        padding: 0.5em;
+        margin: 0;
+    }
+}

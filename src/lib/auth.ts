@@ -1,12 +1,12 @@
-"use server"
+'use server'
 
-import { ServerActionResponse } from "@/types/actions"
+import { ServerActionResponse } from '@/types/actions'
 
-import prisma from "./db"
-import { comparePassword, encryptPassword, setSession } from "@/utils/auth"
-import { redirect } from "next/navigation"
-import { handleError } from "./utils"
-import { cookies } from "next/headers"
+import prisma from './db'
+import { comparePassword, encryptPassword, setSession } from '@/utils/auth'
+import { redirect } from 'next/navigation'
+import { handleError } from './utils'
+import { cookies } from 'next/headers'
 
 export const login = async (values: any): Promise<ServerActionResponse> => {
     const { username, password } = values
@@ -19,9 +19,9 @@ export const login = async (values: any): Promise<ServerActionResponse> => {
         const passwordMatch = await comparePassword(password, user.password)
         if (passwordMatch) {
             setSession({ username })
-            redirect("/expense-tracker")
+            redirect('/expense-tracker')
         } else {
-            throw "Invalid Username or Password"
+            throw Error('Invalid Username or Password')
         }
     } catch (err) {
         return handleError(err)
@@ -36,17 +36,16 @@ export const register = async (values: any) => {
             data: { username, email, password: hashedPassword },
         })
         setSession(user)
-        redirect("/expense-tracker")
+        redirect('/expense-tracker')
     } catch (err) {
         return handleError(err)
     }
 }
 
 export const logOut = () => {
-    console.log("hello")
     try {
-        cookies().delete("session")
-        redirect("/")
+        cookies().delete('session')
+        redirect('/')
     } catch (err) {
         handleError(err)
     }
