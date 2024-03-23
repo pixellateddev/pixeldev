@@ -19,18 +19,13 @@ const Expense: FC<Props> = ({ expense, onEdit, onDelete }) => {
         <Card>
             <div className={classes.expense}>
                 <p className={classes.description}>{expense.description}</p>
-                {!!expense.tags.length && (
-                    <div className={classes.tags}>
-                        {expense.tags.map((tag: any) => (
-                            <Tag
-                                key={tag.name}
-                                color={tag.color}
-                            >
-                                {tag.name}
-                            </Tag>
-                        ))}
-                    </div>
-                )}
+                <div className={classes.tags}>
+                    {expense.tags.map((tag: any) => (
+                        <Tag key={tag.name} color={tag.color}>
+                            {tag.name}
+                        </Tag>
+                    ))}
+                </div>
                 <p className={classes.amount}>₹ {expense.amount}</p>
                 <p className={classes.date}>
                     <CalendarOutlined /> &nbsp;

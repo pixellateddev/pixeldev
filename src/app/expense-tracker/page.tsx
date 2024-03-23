@@ -1,14 +1,22 @@
 import { NextPage } from 'next'
-import ExpenseList from './(components)/expense-list/expense-list'
 import classes from './expense-tracker.module.scss'
-import { getExpenses } from '@/lib/expense'
+import {
+    ExpenseList,
+    ExpenseListLoader,
+    Summary,
+    SummaryLoader,
+} from './(components)'
+import { Suspense } from 'react'
 
-const ExpenseTracker: NextPage = async () => {
-    const expenses = await getExpenses()
-
+const ExpenseTracker: NextPage = () => {
     return (
         <div className={classes.container}>
-            <ExpenseList expenses={expenses} />
+            <Suspense fallback={<SummaryLoader />}>
+                <Summary />
+            </Suspense>
+            <Suspense fallback={<ExpenseListLoader />}>
+                <ExpenseList />
+            </Suspense>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 'use client'
 import { FC, useState } from 'react'
 import ExpenseModal from '../expense-modal/expense-modal'
-import { Button, Card } from 'antd'
+import { Button, Card, Spin } from 'antd'
 import Expense from '../expense/expense'
 import classes from './expense-list.module.scss'
 import { deleteExpense } from '@/lib/expense'
@@ -14,6 +14,7 @@ interface Props {
 const ExpenseList: FC<Props> = ({ expenses }) => {
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [selectedExpense, setSelectedExpense] = useState<any>(null)
+    const [spinning, setSpinning] = useState(false)
     const openForm = (expense?: any) => {
         if (expense) {
             setSelectedExpense(expense)
@@ -26,12 +27,15 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
         setSelectedExpense(null)
     }
 
-    const handleDelete = (expenseId: string) => {
-        deleteExpense(expenseId)
+    const handleDelete = async (expenseId: string) => {
+        setSpinning(true)
+        await deleteExpense(expenseId)
+        setSpinning(false)
     }
 
     return (
         <>
+            <Spin fullscreen spinning={spinning}></Spin>
             <ExpenseModal
                 key={isFormOpen.toString()}
                 expense={selectedExpense}

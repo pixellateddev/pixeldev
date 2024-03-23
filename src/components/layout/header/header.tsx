@@ -18,7 +18,13 @@ const Header: FC<Props> = async ({ appName }) => {
     return (
         <div className={classes.header}>
             <Link href={'/'}>
-                <Image src="/logo.svg" alt="logo" height={30} width={200} />
+                <Image
+                    src="/logo.svg"
+                    alt="logo"
+                    height={30}
+                    width={200}
+                    priority
+                />
             </Link>
             <p className={classes.appName}>{appName}</p>
             <div className={classes.auth}>
