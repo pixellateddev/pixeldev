@@ -16,16 +16,18 @@ interface Props {
 
 const Expense: FC<Props> = ({ expense, onEdit, onDelete }) => {
     return (
-        <Card className={classes.card}>
-            <div className={classes.container}>
+        <Card>
+            <div className={classes.expense}>
                 <p className={classes.description}>{expense.description}</p>
-                <div className={classes.tags}>
-                    {expense.tags.map((tag: any) => (
-                        <Tag key={tag.name} color={tag.color}>
-                            {tag.name}
-                        </Tag>
-                    ))}
-                </div>
+                {!!expense.tags.length && (
+                    <div className={classes.tags}>
+                        {expense.tags.map((tag: any) => (
+                            <Tag key={tag.name} color={tag.color}>
+                                {tag.name}
+                            </Tag>
+                        ))}
+                    </div>
+                )}
                 <p className={classes.amount}>₹ {expense.amount}</p>
                 <p className={classes.date}>
                     <CalendarOutlined /> &nbsp;
@@ -37,12 +39,14 @@ const Expense: FC<Props> = ({ expense, onEdit, onDelete }) => {
                 </p>
                 <div className={classes.actions}>
                     <Button
+                        size="small"
                         onClick={onEdit}
                         icon={<EditOutlined />}
                         type="link"
                         shape="circle"
                     />
                     <Button
+                        size="small"
                         icon={<DeleteOutlined title="Delete" />}
                         onClick={onDelete}
                         type="link"

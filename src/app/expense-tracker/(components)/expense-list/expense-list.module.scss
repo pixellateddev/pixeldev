@@ -5,5 +5,9 @@
 .expenseList {
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    gap: 1em;
+
+    @media screen and (min-width: 580px) {
+        gap: 1.25em;
+    }
 }

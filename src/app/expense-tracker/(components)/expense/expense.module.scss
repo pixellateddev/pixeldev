@@ -1,19 +1,23 @@
-.card {
-    :global {
-        .ant-card-body {
-            padding: 1em !important;
-        }
-    }
-}
-
-.container {
+.expense {
     display: grid;
-    grid-template-columns: 1fr 1fr 15em 15em;
-    align-items: center;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
-        'description tags date amount actions'
-        'notes notes notes notes notes';
-    gap: 1em 2em;
+        'date actions'
+        'description actions'
+        'tags tags'
+        'amount amount'
+        'notes notes';
+    // gap: 0.375em;
+    align-items: center;
+
+    @media screen and (min-width: 580px) {
+        gap: 0.5em;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            'date date actions'
+            'description tags amount'
+            'notes notes notes';
+    }
 
     .description {
         grid-area: description;
@@ -22,16 +26,28 @@
 
     .tags {
         grid-area: tags;
+        justify-self: start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5em;
+
+        :global {
+            .ant-tag {
+                margin: 0 !important;
+            }
+        }
     }
 
     .actions {
         grid-area: actions;
+        justify-self: end;
     }
 
     .date {
-        .dayName {
-            color: gray;
-        }
+        font-size: 0.75rem;
+        color: #acacac;
+        grid-area: date;
+        align-self: end;
     }
 
     .amount {
@@ -43,5 +59,6 @@
 
     .notes {
         grid-area: notes;
+        color: gray;
     }
 }

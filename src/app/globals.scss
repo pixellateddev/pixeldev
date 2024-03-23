@@ -3,11 +3,14 @@
 }
 
 html {
-    font-size: 16px;
+    font-size: 13px;
+    @media screen and (min-width: 580px) {
+        font-size: 16px;
+    }
 }
 
 body {
-    font-size: 14px;
+    font-size: 0.875rem;
     margin: 0;
     padding: 0;
 }
@@ -23,6 +26,19 @@ p {
 }
 
 // Ant Design Customization
-.ant-card-body {
-    height: 100%;
+.ant-card {
+    .ant-card-body {
+        height: 100%;
+    }
+    .ant-card-head,
+    .ant-card-body {
+        padding: 0.75em !important;
+    }
+
+    @media screen and (min-width: 580px) {
+        .ant-card-head,
+        .ant-card-body {
+            padding: 1em 1.25em !important;
+        }
+    }
 }
