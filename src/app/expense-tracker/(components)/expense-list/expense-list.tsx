@@ -42,7 +42,7 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
             <Card
                 title="Yours Expenses"
                 extra={
-                    <Button type="primary" onClick={openForm}>
+                    <Button type="default" onClick={openForm}>
                         Record Expense
                     </Button>
                 }

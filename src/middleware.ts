@@ -1,17 +1,20 @@
-import { NextRequest } from "next/server"
-import { getUser, updateSession } from "./utils/auth"
+import { NextRequest } from 'next/server'
+import { getUser, updateSession } from './utils/auth'
 
 const middleware = async (request: NextRequest) => {
     try {
-        const user = await getUser()
+        await getUser()
         if (
-            user &&
-            (request.nextUrl.pathname.startsWith("/login") ||
-                request.nextUrl.pathname.startsWith("/register"))
+            request.nextUrl.pathname.startsWith('/login') ||
+            request.nextUrl.pathname.startsWith('/register')
         ) {
-            return Response.redirect(new URL("/", request.url))
+            return Response.redirect(new URL('/', request.url))
         }
-    } catch (err) {}
+    } catch (err) {
+        if (request.nextUrl.pathname.startsWith('/expense-tracker')) {
+            return Response.redirect(new URL('/login', request.url))
+        }
+    }
     return await updateSession(request)
 }
 
