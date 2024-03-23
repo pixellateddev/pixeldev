@@ -22,7 +22,10 @@ const Expense: FC<Props> = ({ expense, onEdit, onDelete }) => {
                 {!!expense.tags.length && (
                     <div className={classes.tags}>
                         {expense.tags.map((tag: any) => (
-                            <Tag key={tag.name} color={tag.color}>
+                            <Tag
+                                key={tag.name}
+                                color={tag.color}
+                            >
                                 {tag.name}
                             </Tag>
                         ))}

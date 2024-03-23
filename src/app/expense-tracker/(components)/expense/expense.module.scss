@@ -1,17 +1,17 @@
 .expense {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto auto 1fr;
     grid-template-areas:
-        'date actions'
-        'description actions'
-        'tags tags'
-        'amount amount'
-        'notes notes';
-    // gap: 0.375em;
+        'date date actions'
+        'description tags tags'
+        'amount amount amount'
+        'notes notes notes';
+    row-gap: 0.375em;
+    column-gap: 1em;
     align-items: center;
 
     @media screen and (min-width: 580px) {
-        gap: 0.5em;
+        row-gap: 0.5em;
         grid-template-columns: auto 1fr auto;
         grid-template-areas:
             'date date actions'
@@ -21,19 +21,31 @@
 
     .description {
         grid-area: description;
-        font-weight: 600;
+        font-weight: 500;
+        align-self: start;
     }
 
     .tags {
         grid-area: tags;
-        justify-self: start;
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5em;
+        gap: 0.6125em;
+        align-self: start;
+
+        margin-top: 5px;
+        @media screen and (min-width: 580px) {
+            margin-top: 3px;
+        }
 
         :global {
             .ant-tag {
                 margin: 0 !important;
+                line-height: 1.2 !important;
+                font-size: x-small;
+
+                @media screen and (min-width: 580px) {
+                    font-size: 0.75rem;
+                }
             }
         }
     }
@@ -52,9 +64,9 @@
 
     .amount {
         grid-area: amount;
-        color: red;
-        font-weight: 600;
-        font-size: 1.25rem;
+        color: rgb(207, 72, 72);
+        font-weight: 500;
+        font-size: 1.125rem;
     }
 
     .notes {
