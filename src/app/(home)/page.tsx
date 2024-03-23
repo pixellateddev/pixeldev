@@ -1,3 +1,10 @@
+import { Button } from 'antd'
+import Link from 'next/link'
+
 export default async function Home() {
-    return <div>Hello world</div>
+    return (
+        <Link href={'/expense-tracker'}>
+            <Button type="link">Expense Tracker</Button>
+        </Link>
+    )
 }

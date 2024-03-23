@@ -17,7 +17,9 @@ const Header: FC<Props> = async ({ appName }) => {
     } catch (err) {}
     return (
         <div className={classes.header}>
-            <Image src="/logo.svg" alt="logo" height={35} width={250} />
+            <Link href={'/'}>
+                <Image src="/logo.svg" alt="logo" height={30} width={200} />
+            </Link>
             <p className={classes.appName}>{appName}</p>
             <div className={classes.auth}>
                 {user ? (

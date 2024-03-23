@@ -1,8 +1,8 @@
-import { createExpense } from "@/lib/expense"
-import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd"
-import dayjs, { Dayjs } from "dayjs"
-import { FC, useState } from "react"
-import classes from "./expense-modal.module.scss"
+import { createExpense } from '@/lib/expense'
+import { DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd'
+import dayjs, { Dayjs } from 'dayjs'
+import { FC, useState } from 'react'
+import classes from './expense-modal.module.scss'
 
 interface Props {
     expense?: any
@@ -77,7 +77,7 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
                         maxDate={dayjs()}
                     />
                 </Form.Item>
-                <Form.Item name="tags" label="Tags">
+                <Form.Item name="tags" label="Tags" initialValue={[]}>
                     <Select mode="tags" maxTagCount="responsive" />
                 </Form.Item>
                 <Form.Item name="notes" label="Notes">

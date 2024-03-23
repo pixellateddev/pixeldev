@@ -1,5 +1,3 @@
-import prisma from '@/lib/db'
-import { getUser } from '@/utils/auth'
 import { NextPage } from 'next'
 import ExpenseList from './(components)/expense-list/expense-list'
 import classes from './expense-tracker.module.scss'

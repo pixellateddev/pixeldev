@@ -1,0 +1,16 @@
+.layout {
+    height: 100vh;
+    max-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    .main {
+        padding: 1em;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 1em;
+        background-color: #f3f3f3;
+    }
+}

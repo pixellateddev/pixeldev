@@ -2,10 +2,14 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+}
+
 body {
+    font-size: 14px;
     margin: 0;
     padding: 0;
-    // background-color: #efeded;
 }
 
 h1,
@@ -16,4 +20,9 @@ h5,
 h6,
 p {
     margin: 0;
+}
+
+// Ant Design Customization
+.ant-card-body {
+    height: 100%;
 }

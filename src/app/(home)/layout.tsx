@@ -1,4 +1,4 @@
-import { Header } from '@/components/layout'
+import { GenericLayout, Header } from '@/components/layout'
 import { FC, PropsWithChildren } from 'react'
 import classes from './home-layout.module.scss'
 import { Metadata } from 'next'
@@ -9,15 +9,7 @@ export const metadata: Metadata = {
 }
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
-    return (
-        <div className={classes.container}>
-            <header className={classes.header}>
-                <Header />
-            </header>
-            <main className={classes.main}>{children}</main>
-            <footer className={classes.footer}>Footer</footer>
-        </div>
-    )
+    return <GenericLayout>{children}</GenericLayout>
 }
 
 export default Layout

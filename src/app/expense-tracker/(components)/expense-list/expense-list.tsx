@@ -1,10 +1,11 @@
-"use client"
-import { FC, useState } from "react"
-import ExpenseModal from "../expense-modal/expense-modal"
-import { Button, Card, Empty } from "antd"
-import Expense from "../expense/expense"
-import classes from "./expense-list.module.scss"
-import { deleteExpense } from "@/lib/expense"
+'use client'
+import { FC, useState } from 'react'
+import ExpenseModal from '../expense-modal/expense-modal'
+import { Button, Card } from 'antd'
+import Expense from '../expense/expense'
+import classes from './expense-list.module.scss'
+import { deleteExpense } from '@/lib/expense'
+import { NoData } from '@/components/ui'
 
 interface Props {
     expenses: any[]
@@ -30,7 +31,7 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
     }
 
     return (
-        <div>
+        <>
             <ExpenseModal
                 key={isFormOpen.toString()}
                 expense={selectedExpense}
@@ -45,9 +46,10 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
                         Record Expense
                     </Button>
                 }
+                className={classes.card}
             >
                 {!expenses.length && (
-                    <Empty description="You have no recorded expenses. Please record a new expense." />
+                    <NoData description="You have no recorded expenses. Please record a new expense." />
                 )}
                 <div className={classes.expenseList}>
                     {expenses.map((expense) => (
@@ -60,7 +62,7 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
                     ))}
                 </div>
             </Card>
-        </div>
+        </>
     )
 }
 

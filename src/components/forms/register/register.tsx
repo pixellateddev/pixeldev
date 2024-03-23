@@ -23,9 +23,8 @@ const RegisterForm: FC = () => {
                 name="username"
                 label="Username"
                 rules={[
-                    { required: true },
-                    { type: 'string', max: 10 },
-                    { type: 'string', min: 4 },
+                    { required: true, type: 'string', min: 5 },
+                    { type: 'string', max: 30 },
                 ]}
             >
                 <Input />
@@ -40,14 +39,31 @@ const RegisterForm: FC = () => {
             <Form.Item
                 name="password"
                 label="Password"
-                rules={[{ required: true }]}
+                rules={[
+                    { required: true, type: 'string', min: 10 },
+                    { type: 'string', max: 40 },
+                ]}
             >
                 <Input.Password />
             </Form.Item>
             <Form.Item
                 name="confirmPassword"
                 label="Confirm Password"
-                rules={[{ required: true }]}
+                rules={[
+                    { required: true },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve()
+                            }
+                            return Promise.reject(
+                                new Error(
+                                    'Confirm Password does not match the entered password'
+                                )
+                            )
+                        },
+                    }),
+                ]}
             >
                 <Input.Password />
             </Form.Item>

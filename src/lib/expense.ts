@@ -5,6 +5,20 @@ import prisma from './db'
 import { getUser } from '@/utils/auth'
 import { handleError } from './utils'
 
+const TAG_COLORS = [
+    'magenta',
+    'red',
+    'volcano',
+    'orange',
+    'gold',
+    'lime',
+    'green',
+    'cyan',
+    'blue',
+    'geekblue',
+    'purple',
+]
+
 export const getExpenses = async () => {
     const user = await getUser()
     return await prisma.expense.findMany({
@@ -24,9 +38,7 @@ export const getExpenses = async () => {
                 },
             },
         },
-        orderBy: {
-            date: 'desc',
-        },
+        orderBy: [{ date: 'desc' }, { id: 'desc' }],
     })
 }
 
@@ -39,13 +51,15 @@ export const createExpense = async (values: any) => {
                 date: new Date(values.date),
                 userUsername: user,
                 tags: {
-                    connectOrCreate: values.tags.map((tag: string) => ({
+                    connectOrCreate: values.tags?.map((tag: string) => ({
                         where: {
                             name: tag,
                         },
                         create: {
                             name: tag,
-                            color: 'magenta',
+                            color: TAG_COLORS[
+                                Math.floor(Math.random() * TAG_COLORS.length)
+                            ],
                         },
                     })),
                 },
