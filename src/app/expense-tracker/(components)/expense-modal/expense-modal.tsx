@@ -1,4 +1,4 @@
-import { createExpense } from '@/lib/expense'
+import { createExpense, updateExpense } from '@/lib/expense'
 import { DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
 import { FC, useState } from 'react'
@@ -25,15 +25,32 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
     const handleSubmit = async (values: any) => {
         setSubmitting(true)
         const parsedValues = {
+            ...initialValues,
             ...values,
             date: (values.date as Dayjs).toISOString(),
         }
-        await createExpense(parsedValues)
+        if (expense) {
+            await updateExpense(parsedValues)
+        } else {
+            await createExpense(parsedValues)
+        }
         setSubmitting(false)
         onCancel()
     }
 
-    const initialValues = expense || {}
+    let initialValues = {
+        tags: [],
+    }
+
+    console.log(expense)
+
+    if (expense) {
+        initialValues = {
+            ...expense,
+            tags: expense.tags.map((tag: any) => tag.name),
+            date: dayjs(expense.date),
+        }
+    }
 
     return (
         <Modal
@@ -46,7 +63,7 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
             <Form
                 className={classes.form}
                 form={form}
-                // initialValues={initialValues}
+                initialValues={initialValues}
                 requiredMark="optional"
                 onFinish={handleSubmit}
                 labelCol={{ span: 7 }}
@@ -77,7 +94,7 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
                         maxDate={dayjs()}
                     />
                 </Form.Item>
-                <Form.Item name="tags" label="Tags" initialValue={[]}>
+                <Form.Item name="tags" label="Tags">
                     <Select mode="tags" maxTagCount="responsive" />
                 </Form.Item>
                 <Form.Item name="notes" label="Notes">

@@ -16,6 +16,7 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
     const [selectedExpense, setSelectedExpense] = useState<any>(null)
     const [spinning, setSpinning] = useState(false)
     const openForm = (expense?: any) => {
+        // console.log(expense)
         if (expense) {
             setSelectedExpense(expense)
         }
@@ -46,7 +47,7 @@ const ExpenseList: FC<Props> = ({ expenses }) => {
             <Card
                 title="Yours Expenses"
                 extra={
-                    <Button type="default" onClick={openForm}>
+                    <Button type="default" onClick={() => openForm()}>
                         Record Expense
                     </Button>
                 }

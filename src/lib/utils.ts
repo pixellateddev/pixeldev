@@ -4,6 +4,7 @@ export const handleError = (error: any) => {
     if (isRedirectError(error)) {
         throw error
     }
+    console.log(error)
     return {
         error: true,
         message: error.message,

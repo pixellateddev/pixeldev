@@ -111,6 +111,47 @@ export const createExpense = async (values: any) => {
     }
 }
 
+export const updateExpense = async ({ id, ...values }: any) => {
+    try {
+        const disconnectTagsQuery = prisma.expense.update({
+            where: {
+                id,
+            },
+            data: {
+                tags: {
+                    set: [],
+                },
+            },
+        })
+        const updateExpenseQuery = prisma.expense.update({
+            where: {
+                id,
+            },
+            data: {
+                ...values,
+                date: new Date(values.date),
+                tags: {
+                    connectOrCreate: values.tags?.map((tag: string) => ({
+                        where: {
+                            name: tag,
+                        },
+                        create: {
+                            name: tag,
+                            color: TAG_COLORS[
+                                Math.floor(Math.random() * TAG_COLORS.length)
+                            ],
+                        },
+                    })),
+                },
+            },
+        })
+        await prisma.$transaction([disconnectTagsQuery, updateExpenseQuery])
+        revalidatePath('/expense-tracker')
+    } catch (err) {
+        return handleError(err)
+    }
+}
+
 export const deleteExpense = async (expenseId: string) => {
     const disconnectTagsQuery = prisma.expense.update({
         where: {
