@@ -3,37 +3,31 @@ import { Card, Statistic } from 'antd'
 import { FC } from 'react'
 import classes from './summary.module.scss'
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons'
+import clsx from 'clsx'
 
 const Summary: FC = async () => {
-    const { summary, relative } = await getExpensesSummary('month')
+    const { current, relative } = await getExpensesSummary('month')
+    const suffix = (
+        <p
+            className={clsx(classes.suffix, {
+                [classes.decrease]: relative < 0,
+                [classes.increase]: relative > 0,
+            })}
+        >
+            {relative !== Infinity &&
+                (relative > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />)}
+            {relative !== Infinity && `${Math.abs(relative)}%`}
+        </p>
+    )
+
     return (
         <div className={classes.summary}>
             <Card bordered={false}>
                 <Statistic
                     title="Expenses this month"
-                    value={summary}
+                    value={current}
                     prefix="₹"
-                />
-            </Card>
-            <Card bordered={false}>
-                <Statistic
-                    title="Relative to last month"
-                    value={relative.percentage}
-                    valueStyle={{
-                        color:
-                            relative.direction === 'increase'
-                                ? 'rgb(229, 79, 79)'
-                                : 'green',
-                    }}
-                    precision={2}
-                    prefix={
-                        relative.direction === 'increase' ? (
-                            <ArrowUpOutlined />
-                        ) : (
-                            <ArrowDownOutlined />
-                        )
-                    }
-                    suffix={'%'}
+                    suffix={suffix}
                 />
             </Card>
         </div>

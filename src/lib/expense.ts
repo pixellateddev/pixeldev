@@ -47,9 +47,10 @@ export const getExpensesSummary = async (period: 'month') => {
         },
     })
     await Promise.all([currentSummary, lastSummary])
-    // await new Promise((resolve) => setTimeout(resolve, 5000))
+
     return {
-        summary: (await currentSummary)._sum.amount || 0,
+        current: (await currentSummary)._sum.amount || 0,
+        last: (await lastSummary)._sum.amount || 0,
         relative: getRelativePercentage(
             (await currentSummary)._sum.amount || 0,
             (await lastSummary)._sum.amount || 0

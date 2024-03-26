@@ -42,8 +42,6 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
         tags: [],
     }
 
-    console.log(expense)
-
     if (expense) {
         initialValues = {
             ...expense,

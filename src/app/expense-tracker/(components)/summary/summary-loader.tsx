@@ -8,9 +8,6 @@ const SummaryLoader: FC = () => {
             <Card bordered={false}>
                 <Statistic title="Expenses this month" loading />
             </Card>
-            <Card bordered={false}>
-                <Statistic title="Relative to last month" loading />
-            </Card>
         </div>
     )
 }
