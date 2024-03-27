@@ -2,9 +2,10 @@ import Image from 'next/image'
 import { FC } from 'react'
 import classes from './header.module.scss'
 import Link from 'next/link'
-import { Button } from 'antd'
+import { Button, Drawer } from 'antd'
 import { getUser } from '@/utils/auth'
 import Logout from './components/logout'
+import { AppDrawer } from './components'
 
 interface Props {
     appName?: string
@@ -17,6 +18,7 @@ const Header: FC<Props> = async ({ appName }) => {
     } catch (err) {}
     return (
         <div className={classes.header}>
+            <AppDrawer user={user} />
             <Link href={'/'}>
                 <Image
                     src="/logo.svg"
@@ -26,6 +28,7 @@ const Header: FC<Props> = async ({ appName }) => {
                     priority
                 />
             </Link>
+
             <p className={classes.appName}>{appName}</p>
             <div className={classes.auth}>
                 {user ? (

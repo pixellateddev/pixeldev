@@ -1,0 +1,10 @@
+.appDrawer {
+    @media screen and (min-width: 580px) {
+        display: none;
+    }
+}
+
+.navList {
+    display: flex;
+    flex-direction: column;
+}
