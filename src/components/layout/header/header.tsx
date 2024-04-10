@@ -8,10 +8,11 @@ import Logout from './components/logout'
 import { AppDrawer } from './components'
 
 interface Props {
-    appName?: string
+    rootLink: string
+    logo: string
 }
 
-const Header: FC<Props> = async ({ appName }) => {
+const Header: FC<Props> = async ({ rootLink, logo }) => {
     let user = null
     try {
         user = await getUser()
@@ -19,17 +20,10 @@ const Header: FC<Props> = async ({ appName }) => {
     return (
         <div className={classes.header}>
             <AppDrawer user={user} />
-            <Link href={'/'}>
-                <Image
-                    src="/logo.svg"
-                    alt="logo"
-                    height={30}
-                    width={200}
-                    priority
-                />
+            <Link href={rootLink}>
+                <Image src={logo} alt="logo" height={30} width={200} priority />
             </Link>
 
-            <p className={classes.appName}>{appName}</p>
             <div className={classes.auth}>
                 {user ? (
                     <>

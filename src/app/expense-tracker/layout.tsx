@@ -7,7 +7,18 @@ export const metadata: Metadata = {
 }
 
 const ExpenseLayout: FC<PropsWithChildren> = ({ children }) => {
-    return <GenericLayout appName="Expense Tracker">{children}</GenericLayout>
+    return (
+        <GenericLayout
+            header={
+                <Header
+                    rootLink="/expense-tracker"
+                    logo="/apps/expense-tracker.svg"
+                />
+            }
+        >
+            {children}
+        </GenericLayout>
+    )
 }
 
 export default ExpenseLayout

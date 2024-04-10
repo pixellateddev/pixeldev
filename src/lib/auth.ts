@@ -42,7 +42,7 @@ export const register = async (values: any) => {
     }
 }
 
-export const logOut = () => {
+export const logOut = async () => {
     try {
         cookies().delete('session')
         redirect('/')
