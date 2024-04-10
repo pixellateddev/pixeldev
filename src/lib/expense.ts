@@ -60,7 +60,6 @@ export const getExpensesSummary = async (period: 'month') => {
 
 export const getExpenses = async () => {
     const user = await getUser()
-    // await new Promise((resolve) => setTimeout(resolve, 2000))
     return await prisma.expense.findMany({
         where: {
             userUsername: user,
@@ -82,6 +81,23 @@ export const getExpenses = async () => {
     })
 }
 
+export const getAvailableTags = async () => {
+    const user = await getUser()
+    try {
+        return await prisma.tag.findMany({
+            where: {
+                userUsername: user,
+            },
+            select: {
+                name: true,
+                color: true,
+            },
+        })
+    } catch (err) {
+        handleError(err)
+    }
+}
+
 export const createExpense = async (values: any) => {
     const user = await getUser()
     try {
@@ -94,10 +110,14 @@ export const createExpense = async (values: any) => {
                 tags: {
                     connectOrCreate: values.tags?.map((tag: string) => ({
                         where: {
-                            name: tag,
+                            name_userUsername: {
+                                name: tag,
+                                userUsername: user,
+                            },
                         },
                         create: {
                             name: tag,
+                            userUsername: user,
                             color: TAG_COLORS[
                                 Math.floor(Math.random() * TAG_COLORS.length)
                             ],
@@ -113,6 +133,8 @@ export const createExpense = async (values: any) => {
 }
 
 export const updateExpense = async ({ id, ...values }: any) => {
+    const user = await getUser()
+
     try {
         const disconnectTagsQuery = prisma.expense.update({
             where: {
@@ -134,10 +156,14 @@ export const updateExpense = async ({ id, ...values }: any) => {
                 tags: {
                     connectOrCreate: values.tags?.map((tag: string) => ({
                         where: {
-                            name: tag,
+                            name_userUsername: {
+                                name: tag,
+                                userUsername: user,
+                            },
                         },
                         create: {
                             name: tag,
+                            userUsername: user,
                             color: TAG_COLORS[
                                 Math.floor(Math.random() * TAG_COLORS.length)
                             ],

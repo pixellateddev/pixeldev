@@ -21,7 +21,7 @@ model User {
   password                String
   name                    String?
   expenses                Expense[]
-
+  tags                    Tag[]
   @@map("users")
 }
 
@@ -41,10 +41,13 @@ model Expense {
 
 model Tag {
   id                      String              @id @default(auto()) @map("_id") @db.ObjectId
-  name                    String              @unique
+  name                    String              
   color                   String
+  userUsername            String
+  user                    User                @relation(fields: [userUsername], references: [username])
   expenseIDs              String[]            @db.ObjectId
   expenses                Expense[]           @relation(fields: [expenseIDs], references: [id])
 
+  @@unique([name, userUsername])
   @@map("expenses_tags")
 }

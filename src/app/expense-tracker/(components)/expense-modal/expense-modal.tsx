@@ -1,7 +1,7 @@
-import { createExpense, updateExpense } from '@/lib/expense'
+import { createExpense, getAvailableTags, updateExpense } from '@/lib/expense'
 import { DatePicker, Form, Input, InputNumber, Modal, Select } from 'antd'
 import dayjs, { Dayjs } from 'dayjs'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import classes from './expense-modal.module.scss'
 
 interface Props {
@@ -13,6 +13,13 @@ interface Props {
 const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
     const [form] = Form.useForm()
     const [submitting, setSubmitting] = useState(false)
+    const [tags, setTags] = useState<any[]>([])
+
+    useEffect(() => {
+        if (open) {
+            fetchTags()
+        }
+    }, [open])
 
     const onOk = () => {
         form.submit()
@@ -20,6 +27,10 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
 
     const onCancel = () => {
         onClose()
+    }
+
+    const fetchTags = async () => {
+        setTags((await getAvailableTags()) || [])
     }
 
     const handleSubmit = async (values: any) => {
@@ -93,7 +104,14 @@ const ExpenseModal: FC<Props> = ({ open, expense, onClose }) => {
                     />
                 </Form.Item>
                 <Form.Item name="tags" label="Tags">
-                    <Select mode="tags" maxTagCount="responsive" />
+                    <Select
+                        mode="tags"
+                        maxTagCount="responsive"
+                        options={tags.map((tag) => ({
+                            label: tag.name,
+                            value: tag.name,
+                        }))}
+                    />
                 </Form.Item>
                 <Form.Item name="notes" label="Notes">
                     <Input.TextArea />
